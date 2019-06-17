@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pokemon_ui/pokemon.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -24,6 +26,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var url = "https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json";
+  PokeHub pokeHub;
   @override
   void initState() {
     // TODO: implement initState
@@ -31,7 +34,10 @@ class _MyHomePageState extends State<MyHomePage> {
     fetchData();
   }
   fetchData()async{
-
+      var res = await http.get(url);
+      var jsonDecode = json.decode(res.body);
+      pokeHub = PokeHub.fromJson(jsonDecode);
+      setState(() {});
   }
   @override
   Widget build(BuildContext context) {
@@ -44,8 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: Drawer(
       ),
-      body: Center(
-        child:  Text("Hello from Pokemon App"),
+      body: GridView.count(crossAxisCount: 2,
+        children: pokeHub.pokemon.map((pok)=>Card()).toList(),
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.refresh),backgroundColor: Colors.cyan,),
 
