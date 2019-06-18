@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pokemon_ui/pokemon.dart';
+import 'package:flutter_pokemon_ui/pokemon_detail.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 void main() => runApp(MyApp());
@@ -50,11 +51,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: Drawer(
       ),
-      body: InkWell(
-        onTap: (){},
-        child: pokeHub == null ? Center(child: CircularProgressIndicator(),):
-        GridView.count(crossAxisCount: 2,
-          children: pokeHub.pokemon.map((pok)=>Padding(
+      body: pokeHub == null ? Center(child: CircularProgressIndicator(),):
+      GridView.count(crossAxisCount: 2,
+        children: pokeHub.pokemon.map((pok)=>Padding(
+          child: InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>PokemonDetail(pokemon: pok,)));
+            },
             child: Card(
               elevation: 3,
               child: Column(
@@ -71,9 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            padding: EdgeInsets.all(2),
-          )).toList(),
-        ),
+          ),
+          padding: EdgeInsets.all(2),
+        )).toList(),
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.refresh),backgroundColor: Colors.cyan,),
 
