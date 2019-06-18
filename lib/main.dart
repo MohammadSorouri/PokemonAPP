@@ -58,20 +58,23 @@ class _MyHomePageState extends State<MyHomePage> {
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>PokemonDetail(pokemon: pok,)));
             },
-            child: Card(
-              elevation: 3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    height: 100,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(image: NetworkImage(pok.img)),
+            child: Hero(
+              tag: pok.img,
+              child: Card(
+                elevation: 3,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(image: NetworkImage(pok.img)),
+                      ),
                     ),
-                  ),
-                  Text(pok.name,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
-                ],
+                    Text(pok.name,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
+                  ],
+                ),
               ),
             ),
           ),
