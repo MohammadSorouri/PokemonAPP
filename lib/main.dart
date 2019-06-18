@@ -50,8 +50,30 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: Drawer(
       ),
-      body: GridView.count(crossAxisCount: 2,
-        children: pokeHub.pokemon.map((pok)=>Card()).toList(),
+      body: InkWell(
+        onTap: (){},
+        child: pokeHub == null ? Center(child: CircularProgressIndicator(),):
+        GridView.count(crossAxisCount: 2,
+          children: pokeHub.pokemon.map((pok)=>Padding(
+            child: Card(
+              elevation: 3,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    height: 100,
+                    width: 100,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: NetworkImage(pok.img)),
+                    ),
+                  ),
+                  Text(pok.name,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)
+                ],
+              ),
+            ),
+            padding: EdgeInsets.all(2),
+          )).toList(),
+        ),
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){},child: Icon(Icons.refresh),backgroundColor: Colors.cyan,),
 
